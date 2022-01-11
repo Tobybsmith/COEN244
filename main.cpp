@@ -48,8 +48,8 @@ int main()
             cout << "Enter name of database to be loaded" << endl;
             string dbName;
             cin >> dbName;
-            dbName += ".bongodb";
             db = new Graph(dbName);
+            db->loadGraphFromFile(dbName);
             //search for file named: name.bongodb
             //which will have a list of all files and links related
             //to the directory and can be loaded using the list 

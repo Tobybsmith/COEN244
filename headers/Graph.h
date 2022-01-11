@@ -35,6 +35,6 @@ class Graph{
     void remove(int);
     std::string getName();
     int getIndexFromName(Node*);
-    void loadGraphFromFile();
+    void loadGraphFromFile(std::string);
 };
 #endif

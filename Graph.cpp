@@ -167,11 +167,13 @@ int Graph::getIndexFromName(Node *n)
         }
     }
 }
-void Graph::loadGraphFromFile()
+//works somehow
+void Graph::loadGraphFromFile(std::string n)
 {
-    file.open(name+".bongodb");
+    file.open(n+".bongodb");
     std::string listOfNodes;
     getline(file, listOfNodes);
+    std::cout<<listOfNodes<<std::endl;
     std::istringstream iss(listOfNodes);
     do {
         std::string token;

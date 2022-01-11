@@ -30,8 +30,8 @@ Node::Node(Graph *g, std::string n)
     index = g->nextAvaliableIndex();
     //no edgelist
     name = n;
-    std::fstream file(name+".bongo");
-    std::cout<<name<<std::endl;
+    file.open(name+".bongo", std::ios_base::app);
+    file.close();
 }
 Node::Node(Graph *g, std::vector<Edge*> edgeListIn)
 {
