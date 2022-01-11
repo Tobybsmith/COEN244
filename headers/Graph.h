@@ -4,6 +4,7 @@
 #include "Node.h"
 #include "Edge.h"
 #include <string>
+#include <fstream>
 class Node;
 class Edge;
 class Graph{
@@ -11,8 +12,10 @@ class Graph{
     std::vector<Node*> nodes;
     std::vector<Edge*> edges;
     std::string name;
+    std::fstream file;
     bool bi;
     public:
+    Graph(std::string);
     Graph(std::string, bool);
     Graph(std::vector<Edge*>, std::vector<Node*>, std::string);
     Graph(std::vector<Edge*>, std::vector<Node*>, bool, std::string);
@@ -30,5 +33,8 @@ class Graph{
     void printPair(std::pair<int, int>);
     void remove(std::pair<int, int>);
     void remove(int);
+    std::string getName();
+    int getIndexFromName(Node*);
+    void loadGraphFromFile();
 };
 #endif

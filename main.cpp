@@ -3,6 +3,7 @@
 #include "headers/Node.h"
 #include "headers/Graph.h"
 #include <string>
+#include <fstream>
 
 //TODO
 //-remove deletion, links can be deleted but not nodes
@@ -20,19 +21,44 @@ int main()
     //Graph* db = new Graph();
     Graph *db;
     cout << "Welcome to bongoDB!" << endl;
-    cout << "type HELP for information on usage" << endl <<"> ";
+    cout << "type HELP for information on usage" << endl;
     //USER MUST ADD NODE BEFORE CREATING NEXT ONE OR INDEXES SCREW UP
     while(true)
     {
-        
+        cout << ">  ";
         string command;
         cin >> command;
         if(command == "NEW")
         {
-            int val;
-            cin >> val;
-            Node *n = new Node(db, val);
+            cout << "You must post information to the "
+            << "node in order to save it using POST"
+            << ". Empty files will not be saved by the sytem."<<endl;
+            cout << "Enter a node name: "<<endl;
+            string name;
+            cin >> name;
+            Node *n = new Node(db, name);
             db->addNode(n);
+            ofstream dbFile;
+            //opens the file to append it instead of overwrite it
+            dbFile.open(db->getName() + ".bongodb", ios_base::app);
+            dbFile << n->getName() << " ";
+        }
+        else if(command == "LOAD")
+        {
+            cout << "Enter name of database to be loaded" << endl;
+            string dbName;
+            cin >> dbName;
+            dbName += ".bongodb";
+            db = new Graph(dbName);
+            //search for file named: name.bongodb
+            //which will have a list of all files and links related
+            //to the directory and can be loaded using the list 
+            //based constructors for a graph.
+            //alternate solution is to learn how to make new directories
+            //and have each graph be one directory.
+            //either way must iterate though files to find and load all
+            //nodes and edges into the dir object being created since
+            //Graph's aren't stored between launches of the program.
         }
         else if(command == "CREATE")
         {
@@ -48,6 +74,27 @@ int main()
             ? true
             : false;
             db = new Graph(name, dir);
+            ofstream file;
+            file.open(name+".bongodb");
+            continue;
+        }
+        else if(command == "POST")
+        {
+            cout << "Enter index of node to be modified" << endl << ">  ";
+            int index;
+            cin >> index;
+            cout << "Enter name of key" << endl << ">  ";
+            string keyName;
+            cin >> keyName;
+            cout << "Enter type of data" << endl << ">  ";
+            char type;
+            cin >> type;
+            cout << "Enter value" << endl << ">  ";
+            string value;
+            cin >> value;
+            keyName = keyName + "?" + type;
+            pair<string, string> keyval = make_pair(keyName, value);
+            db->getNodeByIndex(index)->writePair(keyval);
         }
         else if(command == "DISPLAY")
         {
@@ -62,6 +109,13 @@ int main()
             Edge *e = new Edge(db->getNodeList().at(head), 
                 db->getNodeList().at(tail), db->getDirectionality());
             db->addEdge(e);
+            db->getNodeByIndex(head)->writeLink(db->getNodeByIndex(tail));
+            db->getNodeByIndex(tail)->writeLink(db->getNodeByIndex(head));
+            //needs to go to the two nodes in the edge (head and tail), and write
+            //the fact that it exists into their files. (indexes not names)
+            //this shows this file is linked to nodes 0 and 1.
+            //0 name_of_link
+            //1 name_of_link
         }
         else if(command == "UNLINK")
         {
@@ -94,7 +148,7 @@ int main()
             int index;
             int val;
             cin >> index >> val;
-            db->getNodeList().at(index)->setValue(val);
+            //db->getNodeList().at(index)->setValue(val);
         }
         else if(command == "QUIT")
         {

@@ -11,7 +11,13 @@
 #include "headers/Graph.h"
 #include <vector>
 #include <iostream>
-
+#include <fstream>
+#include <sstream>
+Graph::Graph(std::string n)
+{
+    name = n;
+    bi = true;
+}
 Graph::Graph(std::string n, bool dir)
 {
     //done, creates and empty graph
@@ -64,14 +70,13 @@ Edge* Graph::getEdgeByIndexes(int h, int t)
     target = std::make_pair(h, t);
     for(int i = 0; i < nodes.size(); i++)
     {
-        Node current = *nodes.at(i);
-        for(int j = 0; j < current.getEdgeList().size(); j++)
+        for(int j = 0; j < nodes.at(i)->getEdgeList().size(); j++)
         {
             //Node.vector_of_Edge.Edge.pair<>
-            if(current.getEdgeList().at(i)->getPairOfIndexes() == target)
+            if(nodes.at(i)->getEdgeList().at(i)->getPairOfIndexes() == target)
             {
                 //Node.vector_of_Edge.Edge
-                return current.getEdgeList().at(i);
+                return nodes.at(i)->getEdgeList().at(i);
             }
         }
     }
@@ -99,8 +104,8 @@ void Graph::display()
     std::cout<<"Nodes:"<<std::endl;
     for(int i = 0; i < nodes.size(); i++)
     {
-        std::cout << "Node Index: " << nodes.at(i)->getIndex() 
-        << " Node Value: " << nodes.at(i)->getValue() << std::endl;
+        std::cout << "Node Name: " << nodes.at(i)->getName() << 
+            ". Node Index: " << nodes.at(i)->getIndex() << std::endl;
     }
     std::cout<<std::endl;
     std::cout<<"Links:"<<std::endl;
@@ -113,8 +118,9 @@ void Graph::display()
 void Graph::display(Node *n)
 {
     int index = n->getIndex();
-    std::cout << "Index of node is: " << index
-    << ", Value of node is: " << n->getValue() << std::endl;
+    std::cout << 
+    "Name of node is: " << n->getName() 
+        << ". Index of node is: " << index << std::endl;
 }
 void Graph::printPair(std::pair<int, int> p)
 {
@@ -146,4 +152,32 @@ void Graph::remove(int i)
     {
         nodes.at(i)->setIndex(i);
     }
+}
+std::string Graph::getName()
+{
+    return name;
+}
+int Graph::getIndexFromName(Node *n)
+{
+    for(int i = 0; i < nodes.size(); i++)
+    {
+        if(nodes.at(i)->getName() == n->getName())
+        {
+            return n->getIndex();
+        }
+    }
+}
+void Graph::loadGraphFromFile()
+{
+    file.open(name+".bongodb");
+    std::string listOfNodes;
+    getline(file, listOfNodes);
+    std::istringstream iss(listOfNodes);
+    do {
+        std::string token;
+        iss >> token;
+        Node *n = new Node(this, token);
+        nodes.push_back(n);
+    } while(iss);
+    file.close();
 }

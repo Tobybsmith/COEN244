@@ -3,6 +3,7 @@
 #include "headers/Graph.h"
 #include <vector>
 #include <iostream>
+#include <string>
 
 //CONTAINS
 /*
@@ -21,26 +22,26 @@ Node::Node(Graph *g)
     //works
     index = g->nextAvaliableIndex();
     //no edgelist, no value
-    value = 0;
+    name = std::to_string(index);
 }
-Node::Node(Graph *g, int val)
+Node::Node(Graph *g, std::string n)
 {
     //works
     index = g->nextAvaliableIndex();
     //no edgelist
-    value = val;
+    name = n;
+    std::fstream file(name+".bongo");
+    std::cout<<name<<std::endl;
 }
 Node::Node(Graph *g, std::vector<Edge*> edgeListIn)
 {
     index = g->nextAvaliableIndex();
     edgeList = edgeListIn;
-    value = 0;
 }
 Node::Node(int indexIn, std::vector<Edge*> edgeListIn, int val)
 {
     edgeList = edgeListIn;
     index = indexIn;
-    value = val;
 }
 std::vector<Edge*> Node::getEdgeList()
 {
@@ -50,19 +51,45 @@ int Node::getIndex()
 {
     return index;
 }
-int Node::getValue()
+std::string Node::getName()
 {
-    return value;
+    return name;
 }
-void Node::setValue(int toSet)
+void Node::setName(std::string n)
 {
-    value = toSet;
+    name = n;
 }
 void Node::setIndex(int toSet)
 {
     index = toSet;
 }
+void Node::writeLink(Node* destination)
+{
+    file.open(name + ".bongo", std::ios_base::app);
+    file << destination->getIndex() << " ";
+    file.close();
+}
+void Node::writePair(std::pair<std::string, std::string> keyval)
+{
+    //key should look like name?type where type is one char
+    //based on whatever i want:
+    //i for int, l for long, u for ulong, s for string, c for char, b for bool
+    //an example of a keyvalue with name PlayerName and type string:
+    //<PlayerName?s, Elijas Pettersson>
+    //Represented in Player.bongo as:
+    //PlayerName?s: "Elijas Petterson"
+    std::string key = keyval.first;
+    std::string value = keyval.second;
+    //get the char type from the last char in the key string
+    char type = key.at(key.length() - 1);
+    //deletes the type character
+    file.open(name + ".bongo", std::ios_base::app);
+    file << key <<":"<<"\""<<value<<"\""<<"\n";
+    file.close();
+}
 Node::~Node()
 {
+    file.flush();
+    file.close();
     delete this;
 }
