@@ -22,6 +22,9 @@ class Node
     //getters, no need for setters
     int getIndex();
     int getValue();
+    void setValue(int);
+    void setIndex(int);
     std::vector<Edge*> getEdgeList();
+    ~Node();
 };
 #endif

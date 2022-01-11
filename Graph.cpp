@@ -12,21 +12,27 @@
 #include <vector>
 #include <iostream>
 
-Graph::Graph()
+Graph::Graph(std::string n, bool dir)
 {
     //done, creates and empty graph
+    name = n;
+    bi = dir;
 }
-Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList)
+Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList, std::string n)
 {
     //default to a bi-directional graph
-    Graph(edgeList, nodeList, true);
+    edges = edgeList;
+    nodes = nodeList;
+    bi = true;
+    name= n;
 }
-Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList, bool dir)
+Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList, bool dir, std::string n)
 {
     //going from one vector of pointers to another 
     edges = edgeList;
     nodes = nodeList;
     bi = dir;
+    name = n;
 }
 int Graph::nextAvaliableIndex()
 {
@@ -84,18 +90,31 @@ void Graph::addNode(Node *n)
         edges.push_back(n->getEdgeList().at(i));
     }
 }
+void Graph::addEdge(Edge *e)
+{
+    edges.push_back(e);
+}
 void Graph::display()
 {
+    std::cout<<"Nodes:"<<std::endl;
     for(int i = 0; i < nodes.size(); i++)
     {
         std::cout << "Node Index: " << nodes.at(i)->getIndex() 
         << " Node Value: " << nodes.at(i)->getValue() << std::endl;
     }
+    std::cout<<std::endl;
+    std::cout<<"Links:"<<std::endl;
     for(int i = 0; i < edges.size(); i++)
     {
         printPair(edges.at(i)->getPairOfIndexes());
         std::cout<<std::endl;
     }
+}
+void Graph::display(Node *n)
+{
+    int index = n->getIndex();
+    std::cout << "Index of node is: " << index
+    << ", Value of node is: " << n->getValue() << std::endl;
 }
 void Graph::printPair(std::pair<int, int> p)
 {
@@ -108,4 +127,23 @@ std::vector<Node*> Graph::getNodeList()
 std::vector<Edge*> Graph::getEdgeList()
 {
     return edges;
+}
+void Graph::remove(std::pair<int, int> indexes)
+{
+    for(int i = 0; i < edges.size(); i++)
+    {
+        if(edges.at(i)->getPairOfIndexes() == indexes)
+        {
+            edges.erase(edges.begin() + i);
+        }
+    }
+}
+void Graph::remove(int i)
+{
+    nodes.erase(nodes.begin() + i);
+    //must reindex all the other nodes
+    for(int i = 0; i < nodes.size(); i++)
+    {
+        nodes.at(i)->setIndex(i);
+    }
 }

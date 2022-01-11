@@ -25,5 +25,6 @@ class Edge{
     bool getDirectionality();
     //delete node
     void remove(Graph);
+    ~Edge();
 };
 #endif

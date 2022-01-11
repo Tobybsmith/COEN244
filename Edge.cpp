@@ -11,15 +11,17 @@ Edge::Edge(Node *n, Graph *g)
     //Add an edge to the latest node in graph and the node n
     //default should be bidirectional
             //Graph.Vector_Of_Nodes.Node_At_End
-    Edge(n, g->getNodeList().at(g->getNodeList().size()-1), true);
+    
 }
 Edge::Edge(Node *head, Node *tail)
 {
-    Edge(head, tail, true);
+    edgeNodes = std::make_pair(head, tail);
+    edgeIndexes = std::make_pair(head->getIndex(), tail->getIndex());
 }
 Edge::Edge(Node *n, Graph *g, bool dir)
 {
-    Edge(n, g->getNodeList().at(g->getNodeList().size()-1), true);
+    edgeNodes = std::make_pair(n, g->getNodeList().at(g->getNodeList().size()-1));
+    edgeIndexes = std::make_pair(n->getIndex(), g->getNodeList().at(g->getNodeList().size()-1)->getIndex());
 }
 Edge::Edge(Node *head, Node *tail, bool dir)
 {
@@ -38,4 +40,8 @@ std::pair<int, int> Edge::getPairOfIndexes()
 bool Edge::getDirectionality()
 {
     return bi;
+}
+Edge::~Edge()
+{
+    delete this;
 }

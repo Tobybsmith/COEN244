@@ -4,7 +4,12 @@
 #include <vector>
 #include <iostream>
 
-
+//CONTAINS
+/*
+    - int index
+    - int value
+    - vector<Edge*> edgeList
+*/
 
 Node::Node()
 {
@@ -13,25 +18,29 @@ Node::Node()
 }
 Node::Node(Graph *g)
 {
-    std::vector<Edge*> list;
-    Node(g->nextAvaliableIndex(), list, 0);
+    //works
+    index = g->nextAvaliableIndex();
+    //no edgelist, no value
+    value = 0;
 }
 Node::Node(Graph *g, int val)
 {
-    std::vector<Edge*> list;
-    std::cout<<g->nextAvaliableIndex()<<std::endl;
-    Node(g->nextAvaliableIndex(), list, val);
+    //works
+    index = g->nextAvaliableIndex();
+    //no edgelist
+    value = val;
 }
 Node::Node(Graph *g, std::vector<Edge*> edgeListIn)
 {
-    Node(g->nextAvaliableIndex(), edgeListIn, 0);
+    index = g->nextAvaliableIndex();
+    edgeList = edgeListIn;
+    value = 0;
 }
-Node::Node(int indexIn, std::vector<Edge*> edgeListIn, int valueIn)
+Node::Node(int indexIn, std::vector<Edge*> edgeListIn, int val)
 {
     edgeList = edgeListIn;
     index = indexIn;
-    value = valueIn;
-    std::cout<<index<<" "<<value<<std::endl;
+    value = val;
 }
 std::vector<Edge*> Node::getEdgeList()
 {
@@ -44,4 +53,16 @@ int Node::getIndex()
 int Node::getValue()
 {
     return value;
+}
+void Node::setValue(int toSet)
+{
+    value = toSet;
+}
+void Node::setIndex(int toSet)
+{
+    index = toSet;
+}
+Node::~Node()
+{
+    delete this;
 }
