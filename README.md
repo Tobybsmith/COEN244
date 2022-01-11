@@ -1,8 +1,8 @@
 # BongoDB
 This is my database for my COEN244 project. It is supposed to be a graph database using nodes and edges.
 //TODO
-- Files dont get created by constructor.
-- Be able to load a database from it's .bongobd file
+- ~~Files dont get created by constructor.~~
+- ~~Be able to load a database from it's .bongobd file~~
 - Be able to load key-val pairs from node's .bongo file
 - Be able to use links to access content from other linked .bongo files
 - Make the UX not garbage
