@@ -9,4 +9,8 @@ This is my database for my COEN244 project. It is supposed to be a graph databas
 - Make it not crash and warn user instead when bad things happen
 - Revamp commands and functionality
 - Find a way to create directories and use them to store databases in their own directories
+# Long Term Goals
+//TODO
 - More features like copying nodes, deleting nodes maybe, and showing links between nodes
+- Types need to work, but why
+- Database needs to be better and have some way to access it via code
