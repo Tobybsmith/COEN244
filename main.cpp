@@ -4,6 +4,14 @@
 #include "headers/Graph.h"
 #include <string>
 
+//TODO
+//-remove deletion, links can be deleted but not nodes
+//-start using files with key-value pairs to make database
+//-actually do something with direction
+//-from a node, list all paths from that node
+//-display all paths on a graph
+//-gain the index of a node from it's value
+
 using namespace std;
 //this is my relational database :)
 int main()
