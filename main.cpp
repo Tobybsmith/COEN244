@@ -10,7 +10,7 @@
 //-actually do something with direction
 //-from a node, list all paths from that node
 //-display all paths on a graph
-//-gain the index of a node from it's value
+//-gain the index of a node from it's val
 
 using namespace std;
 //this is my relational database :)
@@ -19,11 +19,12 @@ int main()
     //this program creates and manipulates the graph
     //Graph* db = new Graph();
     Graph *db;
+    cout << "Welcome to bongoDB!" << endl;
+    cout << "type HELP for information on usage" << endl <<"> ";
     //USER MUST ADD NODE BEFORE CREATING NEXT ONE OR INDEXES SCREW UP
     while(true)
     {
-        cout << "Welcome to bongoDB!" << endl;
-        cout << "type HELP for information on usage" << endl;
+        
         string command;
         cin >> command;
         if(command == "NEW")
@@ -78,38 +79,15 @@ int main()
                 }
             }
         }
-        else if(command == "DEL")
-        {
-            //user should not be allowed to delete a node if it has links
-            //user must take care of links first.
-            int index;
-            cin >> index;
-            if(db->getNodeByIndex(index)->getEdgeList().size() == 0)
-            {
-                db->remove(index);
-            }
-            else
-            {
-                cout << "You're tyring to delete a node with active links."
-                << " Please delete all links related to the node before deleting the node."
-                << " Use UNLINK index1 index2 or UNLINKALL index and use HELP for more information";
-            }
-        }
-        else if(command == "UNLINKALL")
-        {
-            int index;
-            cin >> index;
-            for(int i = 0; i < db->getNodeByIndex(index)->getEdgeList().size(); i++)
-            {
-                //get the pair of indexes that make an edge and remove them
-                db->remove(db->getNodeByIndex(index)->getEdgeList().at(i)->getPairOfIndexes());
-            }
-        }
         else if(command == "QUERYN")
         {
             int index;
             cin >> index;
             db->display(db->getNodeList().at(index));
+        }
+        else if(command == "QUERYE")
+        {
+            //do stuff
         }
         else if(command == "MOD")
         {
