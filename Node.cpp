@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <fstream>
 
 //CONTAINS
 /*
@@ -30,7 +31,10 @@ Node::Node(Graph *g, std::string n)
     index = g->nextAvaliableIndex();
     //no edgelist
     name = n;
-    file.open(name+".bongo", std::ios_base::app);
+    std::ifstream file(name + ".bongo");
+    std::ofstream fileIn(name + ".bongo");
+    fileIn << "&";
+    fileIn.close();
     file.close();
 }
 Node::Node(Graph *g, std::vector<Edge*> edgeListIn)
@@ -65,9 +69,9 @@ void Node::setIndex(int toSet)
 }
 void Node::writeLink(Node* destination)
 {
-    file.open(name + ".bongo", std::ios_base::app);
-    file << destination->getIndex() << " ";
-    file.close();
+    //file.open(name + ".bongo", std::ios_base::app);
+    //file << destination->getIndex() << " ";
+    //file.close();
 }
 void Node::writePair(std::pair<std::string, std::string> keyval)
 {
@@ -83,13 +87,26 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
     //get the char type from the last char in the key string
     char type = key.at(key.length() - 1);
     //deletes the type character
-    file.open(name + ".bongo", std::ios_base::app);
-    file << key <<":"<<"\""<<value<<"\""<<"\n";
+    std::ifstream file(name+".bongo");
+    std::ofstream fileOut(name+".temp.bongo");
+    while(file.peek() != EOF)
+    {
+        std::string str;
+        std::getline(file, str);
+        if(file.peek() == '&')
+        {
+            fileOut << key << value << std::endl;
+        }
+        fileOut << str << std::endl;
+    }
     file.close();
+    fileOut.close();
+    //delete the old and replace the temp with the old
+    //std::remove(fullname.c_str());
+    //std::rename(fullnameTemp.c_str(), fullname.c_str());
 }
 Node::~Node()
 {
-    file.flush();
     file.close();
     delete this;
 }

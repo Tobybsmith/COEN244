@@ -12,7 +12,7 @@ class Node
     private:
     //dont ever change this
     int index;
-    std::fstream file;
+    std::ifstream file;
     std::vector<Edge*> edgeList; 
     std::string name;
     public:
@@ -22,7 +22,7 @@ class Node
     Node(Graph*, std::string);
     Node(Graph*, std::vector<Edge*>);
     Node(int, std::vector<Edge*>, int);
-    //getters, no need for setters
+    //getters and setters
     int getIndex();
     void setIndex(int);
     std::string getName();
