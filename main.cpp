@@ -28,6 +28,8 @@ int main()
         cout << ">  ";
         string command;
         cin >> command;
+        //this will all get redone
+        //to be better
         if(command == "NEW")
         {
             cout << "You must post information to the "
@@ -119,7 +121,8 @@ int main()
         }
         else if(command == "UNLINK")
         {
-            //works perfectly
+            //will, in future, need to remove links from
+            //the associated files
             int head;
             int tail;
             cin >> head;
@@ -133,6 +136,18 @@ int main()
                 }
             }
         }
+        //QUERY <name/index> (Standard Query) - Very Easy
+        //returns the name, index, and any links
+        //QUERYKV <name/index> and <key> (Query Key Value) - Moderately Easy
+        //returns value from keyval pair, and -1 if no keyval pair exists
+        //QUERYE <name/index> <name/index> (Query Edge) - Very Easy
+        //returns whether the two nodes are linked or not
+        //QUERYP <name/index> (Query Path) - Moderately Hard
+        //returns all links from this node, and all links from the node's
+        // it is linked to.
+        //QUERYV <value> (Query Value) - Very Hard
+        //returns the name of the node, and the key of that kv pair
+        //if it exists at all in the database
         else if(command == "QUERYN")
         {
             int index;
