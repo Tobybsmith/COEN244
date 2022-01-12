@@ -4,6 +4,9 @@ This is my database for my COEN244 project. It is supposed to be a graph databas
 - ~~Files dont get created by constructor.~~
 - ~~Be able to load a database from it's .bongobd file~~
 - Be able to load key-val pairs from node's .bongo file
+- - Need to write change to file before a &
+- - Need to create temp copy and rename after
+- - Way to copy nodes with or without copying links
 - Be able to use links to access content from other linked .bongo files
 - Make the UX not garbage
 - Make it not crash and warn user instead when bad things happen
