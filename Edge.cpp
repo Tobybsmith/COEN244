@@ -43,5 +43,7 @@ bool Edge::getDirectionality()
 }
 Edge::~Edge()
 {
+    //Edges have to be created using NEW always or this will do
+    //some very bad things
     delete this;
 }

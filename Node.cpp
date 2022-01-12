@@ -102,11 +102,12 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
     file.close();
     fileOut.close();
     //delete the old and replace the temp with the old
-    //std::remove(fullname.c_str());
-    //std::rename(fullnameTemp.c_str(), fullname.c_str());
+    std::remove((name+".bogo").c_str());
+    std::rename((name+".temp.bongo").c_str(), (name+".bongo").c_str());
 }
 Node::~Node()
 {
     file.close();
+    //All nodes have to be new nodes
     delete this;
 }
