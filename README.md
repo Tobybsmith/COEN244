@@ -45,3 +45,5 @@ This is my database for my COEN244 project. It is supposed to be a graph databas
 - - Lists the name, internal index, file path, and any links of the selected node
 - QUERYKV name key
 - - Lists the value from the key in the named node
+- QUERYE name name
+- - States whether or not an edge between the two specified nodes exists
