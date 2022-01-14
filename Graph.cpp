@@ -26,6 +26,8 @@ Graph::Graph(std::string n, bool dir)
     bi = dir;
     path = name;
     std::filesystem::create_directory(path);
+    //maybe throw an exception if this fails due to perms
+    //exception CouldntCreateDirectory
     path = path + "\\";
 }
 Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList, std::string n)
@@ -67,6 +69,8 @@ Edge* Graph::getEdgeByNodes(Node *h, Node *t)
             return h->getEdgeList().at(i);
         }
     }
+    //throw exception
+    //something like EdgeNotFound
 }
 Edge* Graph::getEdgeByIndexes(int h, int t)
 {
@@ -84,6 +88,8 @@ Edge* Graph::getEdgeByIndexes(int h, int t)
             }
         }
     }
+    //throw exception
+    //something like EdgeNotFound
 }
 bool Graph::getDirectionality()
 {
@@ -174,6 +180,8 @@ int Graph::getIndexFromName(Node *n)
 //works somehow
 void Graph::loadGraphFromFile(std::string n)
 {
+    //throws CouldntLoadFile
+    //or FileNotFound
     file.open(n+".bongodb");
     std::string listOfNodes;
     getline(file, listOfNodes);
