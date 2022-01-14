@@ -34,6 +34,7 @@ Node::Node(Graph *g, std::string n)
     path = g->getPath() + name;;
     std::ifstream file(path + ".bongo");
     std::ofstream fileIn(path + ".bongo");
+    //CouldntCreateFile
     fileIn << "\n&";
     fileIn.close();
     file.close();
@@ -72,6 +73,7 @@ void Node::writeLink(Node* destination, char d)
 {
     std::ofstream fileOut;
     std::ofstream fileOutDest;
+    //CouldntFindFile
     fileOut.open(path + ".bongo", std::ios_base::app);
     fileOutDest.open(destination->getPath() + ".bongo", std::ios_base::app);
     if(d == 'd')
@@ -112,6 +114,7 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
     //get the char type from the last char in the key string
     char type = key.at(key.length() - 1);
     //deletes the type character
+    //CouldntFindFile
     std::ifstream file(path + ".bongo");
     std::ofstream fileOut(path + ".temp.bongo");
     //highly broken, must work on
@@ -128,6 +131,7 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
         }
         fileOut << str << std::endl;
     }
+    //BadFileFormatting
     file.close();
     fileOut.close();
     //delete the old and replace the temp with the old

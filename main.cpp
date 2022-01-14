@@ -44,6 +44,7 @@ int main()
             //opens the file to append it instead of overwrite it
             dbFile.open(db->getPath()+db->getName() + ".bongodb", ios_base::app);
             dbFile << n->getName() << " ";
+            //CouldntCreateNode
         }
         else if(command == "LOAD")
         {
@@ -61,6 +62,8 @@ int main()
             //either way must iterate though files to find and load all
             //nodes and edges into the dir object being created since
             //Graph's aren't stored between launches of the program.
+
+            //CouldntLoadDatabase
         }
         else if(command == "CREATE")
         {
@@ -78,6 +81,7 @@ int main()
             db = new Graph(name, dir);
             ofstream file;
             file.open(db->getPath()+name+".bongodb");
+            //CouldntCreateDatabase
             continue;
         }
         else if(command == "POST")
@@ -97,6 +101,7 @@ int main()
             keyName = keyName + "?" + type;
             pair<string, string> keyval = make_pair(keyName, value);
             db->getNodeByIndex(index)->writePair(keyval);
+            //CouldntFindNode
         }
         else if(command == "DISPLAY")
         {
@@ -119,6 +124,7 @@ int main()
             //this shows this file is linked to nodes 0 and 1.
             //0 name_of_link
             //1 name_of_link
+            //CouldntLinkNodes
         }
         else if(command == "UNLINK")
         {
@@ -136,6 +142,7 @@ int main()
                     db->remove(target);
                 }
             }
+            //CouldntUnlinkNodes
         }
         //QUERY <name/index> (Standard Query) - Very Easy
         //returns the name, index, and any links
@@ -154,6 +161,7 @@ int main()
             int index;
             cin >> index;
             db->display(db->getNodeList().at(index));
+            //CouldntFindNode
         }
         else if(command == "QUERYE")
         {
