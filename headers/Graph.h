@@ -13,6 +13,7 @@ class Graph{
     std::vector<Edge*> edges;
     std::string name;
     std::fstream file;
+    std::string path;
     bool bi;
     public:
     Graph(std::string);
@@ -36,5 +37,6 @@ class Graph{
     std::string getName();
     int getIndexFromName(Node*);
     void loadGraphFromFile(std::string);
+    std::string getPath();
 };
 #endif

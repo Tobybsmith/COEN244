@@ -31,8 +31,9 @@ Node::Node(Graph *g, std::string n)
     index = g->nextAvaliableIndex();
     //no edgelist
     name = n;
-    std::ifstream file(name + ".bongo");
-    std::ofstream fileIn(name + ".bongo");
+    path = g->getPath() + name;;
+    std::ifstream file(path + ".bongo");
+    std::ofstream fileIn(path + ".bongo");
     fileIn << "&";
     fileIn.close();
     file.close();
@@ -87,8 +88,9 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
     //get the char type from the last char in the key string
     char type = key.at(key.length() - 1);
     //deletes the type character
-    std::ifstream file(name+".bongo");
-    std::ofstream fileOut(name+".temp.bongo");
+    std::ifstream file(path + ".bongo");
+    std::ofstream fileOut(path + ".temp.bongo");
+    //highly broken, must work on
     while(file.peek() != EOF)
     {
         std::string str;
@@ -102,8 +104,8 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
     file.close();
     fileOut.close();
     //delete the old and replace the temp with the old
-    std::remove((name+".bogo").c_str());
-    std::rename((name+".temp.bongo").c_str(), (name+".bongo").c_str());
+    std::remove((path +".bongo").c_str());
+    std::rename((path +".temp.bongo").c_str(), (path +".bongo").c_str());
 }
 Node::~Node()
 {

@@ -15,6 +15,7 @@ class Node
     std::ifstream file;
     std::vector<Edge*> edgeList; 
     std::string name;
+    std::string path;
     public:
     //default, index no value, index and edges no value, index edges value
     Node();

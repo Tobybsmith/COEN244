@@ -42,7 +42,7 @@ int main()
             db->addNode(n);
             ofstream dbFile;
             //opens the file to append it instead of overwrite it
-            dbFile.open(db->getName() + ".bongodb", ios_base::app);
+            dbFile.open(db->getPath()+db->getName() + ".bongodb", ios_base::app);
             dbFile << n->getName() << " ";
         }
         else if(command == "LOAD")
@@ -77,7 +77,7 @@ int main()
             : false;
             db = new Graph(name, dir);
             ofstream file;
-            file.open(name+".bongodb");
+            file.open(db->getPath()+name+".bongodb");
             continue;
         }
         else if(command == "POST")
@@ -171,16 +171,17 @@ int main()
         }
         else if(command == "HELP")
         {
-        cout << "syntax to create a new node is NEW value" << endl;
-        cout << "to view nodes and links, type DISPLAY" << endl;
-        cout << "to link two nodes, type LINK index1 index2" << endl;
-        //cout << "to create a new database type CREATE name" << endl;
-        cout << "to unlink two nodes, type UNLINK index1 index2" << endl;
-        cout << "to delete a node type DEL index" << endl;
-        cout << "to query the informantion about a node type QUERYN index" << endl;
-        cout << "to query information about a link type QUERYL index1 index2" << endl;
-        cout << "to change information about a node, type MOD index new_value" << endl;
-        cout << "to quit, type QUIT" << endl;
+            //outdated, must update.
+            cout << "syntax to create a new node is NEW value" << endl;
+            cout << "to view nodes and links, type DISPLAY" << endl;
+            cout << "to link two nodes, type LINK index1 index2" << endl;
+            //cout << "to create a new database type CREATE name" << endl;
+            cout << "to unlink two nodes, type UNLINK index1 index2" << endl;
+            cout << "to delete a node type DEL index" << endl;
+            cout << "to query the informantion about a node type QUERYN index" << endl;
+            cout << "to query information about a link type QUERYL index1 index2" << endl;
+            cout << "to change information about a node, type MOD index new_value" << endl;
+            cout << "to quit, type QUIT" << endl;
         }
         else
         {

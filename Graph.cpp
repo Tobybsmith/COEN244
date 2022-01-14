@@ -13,6 +13,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 Graph::Graph(std::string n)
 {
     name = n;
@@ -23,6 +24,9 @@ Graph::Graph(std::string n, bool dir)
     //done, creates and empty graph
     name = n;
     bi = dir;
+    path = name;
+    std::filesystem::create_directory(path);
+    path = path + "\\";
 }
 Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList, std::string n)
 {
@@ -30,7 +34,7 @@ Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList, std::stri
     edges = edgeList;
     nodes = nodeList;
     bi = true;
-    name= n;
+    name = n;
 }
 Graph::Graph(std::vector<Edge*> edgeList, std::vector<Node*> nodeList, bool dir, std::string n)
 {
@@ -182,4 +186,8 @@ void Graph::loadGraphFromFile(std::string n)
         nodes.push_back(n);
     } while(iss);
     file.close();
+}
+std::string Graph::getPath()
+{
+    return path;
 }
