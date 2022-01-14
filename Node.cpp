@@ -34,7 +34,7 @@ Node::Node(Graph *g, std::string n)
     path = g->getPath() + name;;
     std::ifstream file(path + ".bongo");
     std::ofstream fileIn(path + ".bongo");
-    fileIn << "&";
+    fileIn << "\n&";
     fileIn.close();
     file.close();
 }
@@ -68,11 +68,35 @@ void Node::setIndex(int toSet)
 {
     index = toSet;
 }
-void Node::writeLink(Node* destination)
+void Node::writeLink(Node* destination, char d)
 {
-    //file.open(name + ".bongo", std::ios_base::app);
-    //file << destination->getIndex() << " ";
-    //file.close();
+    std::ofstream fileOut;
+    std::ofstream fileOutDest;
+    fileOut.open(path + ".bongo", std::ios_base::app);
+    fileOutDest.open(destination->getPath() + ".bongo", std::ios_base::app);
+    if(d == 'd')
+    {
+        fileOutDest<<"<"<<destination->getIndex()<<">"<<std::endl;
+    }
+    else if(d == 'b')
+    {
+        fileOutDest<<'<'<<this->getIndex()<<","
+            <<destination->getIndex()<<">"<<std::endl;
+    }
+    //link format is <getter>
+    //LINK 2 1
+    //linking nodes 2 and 1 directionally would look like:
+    //node1.bongo:
+    //<2>
+    //node2.bongo:
+    //nothing
+    //bidirectionally would look like:
+    //node1.bongo:
+    //<2,1>
+    //node2.bongo:
+    //<2,1>
+    fileOutDest.close();
+    fileOut.close();
 }
 void Node::writePair(std::pair<std::string, std::string> keyval)
 {
@@ -98,6 +122,9 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
         if(file.peek() == '&')
         {
             fileOut << key << value << std::endl;
+            //fileOut << "HOW DID WE GET HERE" << std::endl;
+            //never reaches here on file with only one &
+            //and nothing else.
         }
         fileOut << str << std::endl;
     }
@@ -106,6 +133,10 @@ void Node::writePair(std::pair<std::string, std::string> keyval)
     //delete the old and replace the temp with the old
     std::remove((path +".bongo").c_str());
     std::rename((path +".temp.bongo").c_str(), (path +".bongo").c_str());
+}
+std::string Node::getPath()
+{
+    return path;
 }
 Node::~Node()
 {

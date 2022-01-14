@@ -29,8 +29,9 @@ class Node
     std::string getName();
     void setName(std::string);
     std::vector<Edge*> getEdgeList();
-    void writeLink(Node*);
+    void writeLink(Node*, char);
     void writePair(std::pair<std::string, std::string>);
+    std::string getPath();
     ~Node();
 };
 #endif

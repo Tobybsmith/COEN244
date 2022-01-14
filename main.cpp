@@ -111,8 +111,9 @@ int main()
             Edge *e = new Edge(db->getNodeList().at(head), 
                 db->getNodeList().at(tail), db->getDirectionality());
             db->addEdge(e);
-            db->getNodeByIndex(head)->writeLink(db->getNodeByIndex(tail));
-            db->getNodeByIndex(tail)->writeLink(db->getNodeByIndex(head));
+            //need to specify directionality of link
+            db->getNodeByIndex(head)->writeLink(db->getNodeByIndex(tail), 'b');
+            db->getNodeByIndex(tail)->writeLink(db->getNodeByIndex(head), 'b');
             //needs to go to the two nodes in the edge (head and tail), and write
             //the fact that it exists into their files. (indexes not names)
             //this shows this file is linked to nodes 0 and 1.
