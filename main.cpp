@@ -30,6 +30,8 @@ int main()
         cin >> command;
         //this will all get redone
         //to be better
+        //need to make a better cli
+        //or gui?
         if(command == "NEW")
         {
             cout << "You must post information to the "
@@ -46,6 +48,7 @@ int main()
             dbFile << n->getName() << " ";
             //CouldntCreateNode
         }
+        //this is gonna be hard
         else if(command == "LOAD")
         {
             cout << "Enter name of database to be loaded" << endl;

@@ -71,6 +71,8 @@ void Node::setIndex(int toSet)
 }
 void Node::writeLink(Node* destination, char d)
 {
+    //must revamp, LINK makes two things linked in main.cpp
+    //this should not worry about directionality.
     std::ofstream fileOut;
     std::ofstream fileOutDest;
     //CouldntFindFile
