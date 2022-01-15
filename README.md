@@ -4,7 +4,7 @@ This is my database for my COEN244 project. It is supposed to be a graph databas
 //TODO
 - ~~Files dont get created by constructor.~~
 - ~~Be able to load a database from it's .bongobd file~~
-- ~~Be able to write key-val pairs to a node's file
+- ~~Be able to write key-val pairs to a node's file~~
 - Be able to load key-val pairs from node's .bongo file
 - - Need to write change to file before a &
 - - Need to create temp copy and rename after
