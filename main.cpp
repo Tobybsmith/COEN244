@@ -34,9 +34,6 @@ int main()
         //or gui?
         if(command == "NEW")
         {
-            cout << "You must post information to the "
-            << "node in order to save it using POST"
-            << ". Empty files will not be saved by the sytem."<<endl;
             cout << "Enter a node name: "<<endl;
             string name;
             cin >> name;
@@ -201,5 +198,4 @@ int main()
         }
         
     }
-    db->display();
 }
